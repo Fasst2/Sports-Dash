@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="theme-color"
+        content="#080b10"
+    >
+
+    <meta
+        name="description"
+        content="SportDash Premium — Tu centro deportivo."
+    >
+
+    <title>SportDash Premium</title>
+
+    <link
+        rel="stylesheet"
+        href="/css/app.css"
+    >
+</head>
+
+<body>
+
+    <div class="app-shell">
+
+        <!-- =====================================================
+             SIDEBAR
+             ===================================================== -->
+
+        <aside class="sidebar" id="sidebar">
+
+            <div class="sidebar__brand">
+
+                <div class="brand-mark">
+                    <span>SD</span>
+                </div>
+
+                <div class="brand-copy">
+                    <strong>SportDash</strong>
+                    <span>PREMIUM</span>
+                </div>
+
+            </div>
+
+            <nav class="sidebar__nav" aria-label="Navegación principal">
+
+                <div class="nav-section">
+
+                    <span class="nav-section__title">
+                        PRINCIPAL
+                    </span>
+
+                    <button
+                        class="nav-item is-active"
+                        type="button"
+                        data-view="home"
+                    >
+                        <span class="nav-item__icon">⌂</span>
+                        <span>Inicio</span>
+                    </button>
+
+                    <button
+                        class="nav-item"
+                        type="button"
+                        data-view="matches"
+                    >
+                        <span class="nav-item__icon">◉</span>
+                        <span>Partidos</span>
+                    </button>
+
+                    <button
+                        class="nav-item"
+                        type="button"
+                        data-view="live"
+                    >
+                        <span class="nav-item__icon nav-item__icon--live">●</span>
+                        <span>En vivo</span>
+                    </button>
+
+                    <button
+                        class="nav-item"
+                        type="button"
+                        data-view="favorites"
+                    >
+                        <span class="nav-item__icon">☆</span>
+                        <span>Favoritos</span>
+                    </button>
+
+                </div>
+
+                <div class="nav-section">
+
+                    <span class="nav-section__title">
+                        CUENTA
+                    </span>
+
+                    <button
+                        class="nav-item"
+                        type="button"
+                        data-view="settings"
+                    >
+                        <span class="nav-item__icon">⚙</span>
+                        <span>Configuración</span>
+                    </button>
+
+                </div>
+
+            </nav>
+
+            <div class="sidebar__bottom">
+
+                <div class="connection-card">
+
+                    <div class="connection-card__status">
+                        <span class="status-dot"></span>
+                        Sistema operativo
+                    </div>
+
+                    <span class="connection-card__text">
+                        API conectada correctamente
+                    </span>
+
+                </div>
+
+                <div class="sidebar__version">
+                    SportDash Premium
+                    <span>v2.1</span>
+                </div>
+
+            </div>
+
+        </aside>
+
+
+        <!-- =====================================================
+             MAIN
+             ===================================================== -->
+
+        <main class="main-content">
+
+            <!-- TOPBAR -->
+
+            <header class="topbar">
+
+                <button
+                    class="mobile-menu"
+                    id="mobile-menu"
+                    type="button"
+                    aria-label="Abrir menú"
+                >
+                    ☰
+                </button>
+
+                <div class="topbar__left">
+
+                    <span class="topbar__eyebrow">
+                        CENTRO DEPORTIVO
+                    </span>
+
+                    <h1 id="page-title">
+                        Inicio
+                    </h1>
+
+                </div>
+
+                <div class="topbar__right">
+
+                    <div class="current-date" id="current-date">
+                        --
+                    </div>
+
+                    <button
+                        class="refresh-button"
+                        id="refresh-button"
+                        type="button"
+                        aria-label="Actualizar partidos"
+                    >
+                        ↻
+                    </button>
+
+                    <div class="profile">
+
+                        <div class="profile__avatar">
+                            SD
+                        </div>
+
+                        <div class="profile__info">
+                            <strong>SportDash</strong>
+                            <span>Premium</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </header>
+
+
+            <!-- =================================================
+                 HOME
+                 ================================================= -->
+
+            <section
+                class="view is-visible"
+                id="view-home"
+            >
+
+                <!-- HERO -->
+
+                <section class="hero">
+
+                    <div class="hero__content">
+
+                        <div class="hero__badge">
+                            <span class="hero__badge-dot"></span>
+                            TODO EL FÚTBOL EN UN SOLO LUGAR
+                        </div>
+
+                        <h2>
+                            Viví cada partido.
+                            <strong>Sin perderte nada.</strong>
+                        </h2>
+
+                        <p>
+                            Explorá los encuentros de hoy,
+                            seguí los partidos en vivo y encontrá
+                            rápidamente la competición que buscás.
+                        </p>
+
+                    </div>
+
+                    <div class="hero__visual">
+
+                        <div class="hero-ball">
+                            ⚽
+                        </div>
+
+                        <div class="hero-ring hero-ring--one"></div>
+                        <div class="hero-ring hero-ring--two"></div>
+                        <div class="hero-ring hero-ring--three"></div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- STATS -->
+
+                <section class="stats-grid">
+
+                    <article class="stat-card">
+
+                        <div class="stat-card__icon">
+                            ◉
+                        </div>
+
+                        <div class="stat-card__content">
+                            <span>PARTIDOS DE HOY</span>
+                            <strong id="stat-total">--</strong>
+                        </div>
+
+                    </article>
+
+
+                    <article class="stat-card stat-card--live">
+
+                        <div class="stat-card__icon">
+                            ●
+                        </div>
+
+                        <div class="stat-card__content">
+                            <span>EN VIVO</span>
+                            <strong id="stat-live">--</strong>
+                        </div>
+
+                    </article>
+
+
+                    <article class="stat-card">
+
+                        <div class="stat-card__icon">
+                            ◷
+                        </div>
+
+                        <div class="stat-card__content">
+                            <span>PRÓXIMOS</span>
+                            <strong id="stat-upcoming">--</strong>
+                        </div>
+
+                    </article>
+
+
+                    <article class="stat-card">
+
+                        <div class="stat-card__icon">
+                            ✓
+                        </div>
+
+                        <div class="stat-card__content">
+                            <span>FINALIZADOS</span>
+                            <strong id="stat-finished">--</strong>
+                        </div>
+
+                    </article>
+
+                </section>
+
+
+                <!-- MATCHES -->
+
+                <section class="content-section">
+
+                    <div class="section-heading">
+
+                        <div>
+                            <span class="section-heading__eyebrow">
+                                AGENDA
+                            </span>
+
+                            <h2>
+                                Partidos de hoy
+                            </h2>
+                        </div>
+
+                        <button
+                            class="section-link"
+                            type="button"
+                            data-view="matches"
+                        >
+                            Ver todos
+                            <span>→</span>
+                        </button>
+
+                    </div>
+
+
+                    <!-- FILTERS -->
+
+                    <div class="filters">
+
+                        <div class="filter-group">
+
+                            <label for="date-filter">
+                                Fecha
+                            </label>
+
+                            <input
+                                type="date"
+                                id="date-filter"
+                            >
+
+                        </div>
+
+
+                        <div class="filter-group">
+
+                            <label for="league-filter">
+                                Competición
+                            </label>
+
+                            <select id="league-filter">
+
+                                <option value="all">
+                                    Todas las competiciones
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="filter-group filter-group--search">
+
+                            <label for="search-filter">
+                                Buscar
+                            </label>
+
+                            <div class="search-box">
+
+                                <span>⌕</span>
+
+                                <input
+                                    type="search"
+                                    id="search-filter"
+                                    placeholder="Equipo o competición..."
+                                >
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- MATCH GRID -->
+
+                    <div
+                        class="matches-grid"
+                        id="matches-grid"
+                    ></div>
+
+                    <div
+                        class="loading-state"
+                        id="loading-state"
+                    >
+
+                        <div class="loading-spinner"></div>
+
+                        <strong>
+                            Cargando partidos
+                        </strong>
+
+                        <span>
+                            Estamos consultando la agenda deportiva.
+                        </span>
+
+                    </div>
+
+
+                    <div
+                        class="empty-state is-hidden"
+                        id="empty-state"
+                    >
+
+                        <div class="empty-state__icon">
+                            ⚽
+                        </div>
+
+                        <h3>
+                            No encontramos partidos
+                        </h3>
+
+                        <p>
+                            Probá cambiando la fecha,
+                            competición o búsqueda.
+                        </p>
+
+                    </div>
+
+
+                    <div
+                        class="error-state is-hidden"
+                        id="error-state"
+                    >
+
+                        <div class="error-state__icon">
+                            !
+                        </div>
+
+                        <h3>
+                            No pudimos cargar los partidos
+                        </h3>
+
+                        <p id="error-message">
+                            Verificá que el servidor esté funcionando.
+                        </p>
+
+                        <button
+                            type="button"
+                            id="retry-button"
+                            class="primary-button"
+                        >
+                            Intentar nuevamente
+                        </button>
+
+                    </div>
+
+                </section>
+
+            </section>
+
+
+            <!-- =================================================
+                 MATCHES VIEW
+                 ================================================= -->
+
+            <section
+                class="view"
+                id="view-matches"
+            >
+
+                <section class="page-intro">
+
+                    <span>
+                        AGENDA DEPORTIVA
+                    </span>
+
+                    <h2>
+                        Todos los partidos
+                    </h2>
+
+                    <p>
+                        Explorá los encuentros disponibles
+                        y encontrá rápidamente el partido que buscás.
+                    </p>
+
+                </section>
+
+                <div
+                    class="matches-grid"
+                    id="matches-grid-full"
+                ></div>
+
+            </section>
+
+
+            <!-- =================================================
+                 LIVE VIEW
+                 ================================================= -->
+
+            <section
+                class="view"
+                id="view-live"
+            >
+
+                <section class="page-intro">
+
+                    <span>
+                        TRANSMISIONES
+                    </span>
+
+                    <h2>
+                        En vivo
+                    </h2>
+
+                    <p>
+                        Los partidos que se encuentran disputándose
+                        actualmente aparecerán aquí.
+                    </p>
+
+                </section>
+
+                <div
+                    class="matches-grid"
+                    id="matches-grid-live"
+                ></div>
+
+            </section>
+
+
+            <!-- =================================================
+                 FAVORITES
+                 ================================================= -->
+
+            <section
+                class="view"
+                id="view-favorites"
+            >
+
+                <section class="page-intro">
+
+                    <span>
+                        TU SELECCIÓN
+                    </span>
+
+                    <h2>
+                        Favoritos
+                    </h2>
+
+                    <p>
+                        Tus equipos y partidos favoritos estarán
+                        disponibles en esta sección.
+                    </p>
+
+                </section>
+
+                <div class="placeholder-panel">
+
+                    <div class="placeholder-panel__icon">
+                        ☆
+                    </div>
+
+                    <h3>
+                        Próximamente
+                    </h3>
+
+                    <p>
+                        Estamos preparando tu sistema de favoritos.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 SETTINGS
+                 ================================================= -->
+
+            <section
+                class="view"
+                id="view-settings"
+            >
+
+                <section class="page-intro">
+
+                    <span>
+                        SISTEMA
+                    </span>
+
+                    <h2>
+                        Configuración
+                    </h2>
+
+                    <p>
+                        Ajustes de tu experiencia SportDash.
+                    </p>
+
+                </section>
+
+                <div class="placeholder-panel">
+
+                    <div class="placeholder-panel__icon">
+                        ⚙
+                    </div>
+
+                    <h3>
+                        Configuración
+                    </h3>
+
+                    <p>
+                        Las opciones de personalización
+                        se incorporarán en las próximas etapas.
+                    </p>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <!-- =========================================================
+         MATCH MODAL
+         ========================================================= -->
+
+    <div
+        class="modal"
+        id="match-modal"
+        aria-hidden="true"
+    >
+
+        <div
+            class="modal__backdrop"
+            data-close-modal
+        ></div>
+
+        <div
+            class="modal__panel"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modal-title"
+        >
+
+            <button
+                class="modal__close"
+                type="button"
+                id="modal-close"
+                aria-label="Cerrar"
+            >
+                ×
+            </button>
+
+            <div class="modal__league" id="modal-league">
+                --
+            </div>
+
+            <h2 id="modal-title">
+                Partido
+            </h2>
+
+            <div class="modal__teams">
+
+                <div class="modal-team">
+
+                    <img
+                        id="modal-home-logo"
+                        src=""
+                        alt=""
+                    >
+
+                    <strong id="modal-home">
+                        --
+                    </strong>
+
+                </div>
+
+                <div class="modal-score">
+
+                    <span id="modal-status">
+                        --
+                    </span>
+
+                    <strong id="modal-score">
+                        - : -
+                    </strong>
+
+                    <small id="modal-time">
+                        --
+                    </small>
+
+                </div>
+
+                <div class="modal-team">
+
+                    <img
+                        id="modal-away-logo"
+                        src=""
+                        alt=""
+                    >
+
+                    <strong id="modal-away">
+                        --
+                    </strong>
+
+                </div>
+
+            </div>
+
+            <div class="modal__footer">
+
+                <span id="modal-country">
+                    --
+                </span>
+
+                <button
+                    type="button"
+                    class="primary-button"
+                    id="modal-action"
+                >
+                    Ver detalles
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- TOAST -->
+
+    <div
+        class="toast"
+        id="toast"
+        role="status"
+        aria-live="polite"
+    >
+        <span id="toast-message"></span>
+    </div>
+
+
+    <script src="/js/app.js"></script>
+
+</body>
+</html>

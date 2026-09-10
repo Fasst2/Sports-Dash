@@ -1,0 +1,732 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="SportDash — centro deportivo privado.">
+  <meta name="theme-color" content="#07080c">
+  <title>SportDash — Centro deportivo</title>
+
+  <link rel="stylesheet" href="https://vjs.zencdn.net/8.23.4/video-js.css">
+  <link rel="stylesheet" href="/css/app.css">
+
+  <script src="https://vjs.zencdn.net/8.23.4/video.min.js"></script>
+</head>
+
+<body class="app-page">
+
+  <div class="app-layout">
+
+    <aside class="sidebar" id="sidebar">
+
+      <a class="brand sidebar-brand" href="#inicio" aria-label="SportDash inicio" data-view="home">
+        <span class="brand-mark">S</span>
+        <span>SPORT<span>DASH</span></span>
+      </a>
+
+      <nav class="nav" aria-label="Navegación principal">
+
+        <a class="nav-item is-active" href="#inicio" data-view="home">
+          <span>⌂</span>
+          <span>Inicio</span>
+        </a>
+
+        <a class="nav-item" href="#partidos" data-view="matches">
+          <span>▣</span>
+          <span>Partidos</span>
+        </a>
+
+        <a class="nav-item" href="#tv" data-view="live">
+          <span>▶</span>
+          <span>TV en vivo</span>
+        </a>
+
+        <a class="nav-item" href="#favoritos" data-view="favorites">
+          <span>★</span>
+          <span>Favoritos</span>
+        </a>
+
+        <a
+          class="nav-item nav-item--admin hidden"
+          href="#usuarios"
+          data-view="users"
+          id="users-nav"
+        >
+          <span>♙</span>
+          <span>Usuarios</span>
+        </a>
+
+      </nav>
+
+      <div class="sidebar-bottom">
+
+        <div class="account-mini">
+          <div class="avatar" id="sidebar-avatar">U</div>
+
+          <div>
+            <strong id="sidebar-name">Usuario</strong>
+            <span id="sidebar-role">Miembro</span>
+          </div>
+        </div>
+
+        <button class="nav-item nav-item--button" id="logout-button">
+          <span>↪</span>
+          <span>Cerrar sesión</span>
+        </button>
+
+      </div>
+
+    </aside>
+
+    <div class="mobile-overlay" id="mobile-overlay"></div>
+
+    <section class="app-main">
+
+      <header class="topbar">
+
+        <button
+          class="menu-button"
+          id="menu-button"
+          aria-label="Abrir menú"
+          aria-expanded="false"
+        >
+          ☰
+        </button>
+
+        <div class="topbar-title">
+          <span class="eyebrow" id="view-eyebrow">
+            CENTRO DEPORTIVO
+          </span>
+
+          <h1 id="view-title">Inicio</h1>
+        </div>
+
+        <div class="topbar-actions">
+
+          <div class="access-pill" id="access-pill">
+            <span class="status-dot"></span>
+            <span id="access-text">Acceso activo</span>
+          </div>
+
+          <div class="avatar avatar--top" id="top-avatar">U</div>
+
+        </div>
+
+      </header>
+
+      <main class="content">
+
+        <!-- =========================
+             INICIO
+        ========================== -->
+
+        <section class="view is-active" id="view-home">
+
+          <section class="hero-card">
+
+            <div class="hero-content">
+
+              <p class="eyebrow">SPORTDASH PRIVATE</p>
+
+              <h2>
+                Todo el deporte.<br>
+                <em>En un solo lugar.</em>
+              </h2>
+
+              <p>
+                Explorá partidos, programación deportiva y canales
+                disponibles dentro de tu acceso privado.
+              </p>
+
+              <div class="hero-actions">
+
+                <a
+                  class="button button--primary"
+                  href="#partidos"
+                  data-view-link="matches"
+                >
+                  Explorar partidos
+                  <span>→</span>
+                </a>
+
+                <button
+                  class="button button--ghost"
+                  id="hero-live"
+                >
+                  Ver TV en vivo
+                </button>
+
+              </div>
+
+            </div>
+
+            <div class="hero-art" aria-hidden="true">
+              <div class="hero-ring ring-one"></div>
+              <div class="hero-ring ring-two"></div>
+              <div class="hero-ball">⚽</div>
+              <div class="hero-glow"></div>
+            </div>
+
+          </section>
+
+          <section class="section-block">
+
+            <div class="section-head">
+
+              <div>
+                <p class="eyebrow">AGENDA</p>
+                <h2>Próximos eventos</h2>
+              </div>
+
+              <a
+                href="#partidos"
+                data-view-link="matches"
+              >
+                Ver todos →
+              </a>
+
+            </div>
+
+            <div
+              class="match-grid"
+              id="home-matches"
+            ></div>
+
+          </section>
+
+          <section class="section-block">
+
+            <div class="section-head">
+
+              <div>
+                <p class="eyebrow">TV</p>
+                <h2>Canales deportivos</h2>
+              </div>
+
+              <a
+                href="#tv"
+                data-view-link="live"
+              >
+                Ver canales →
+              </a>
+
+            </div>
+
+            <div
+              class="channel-grid channel-grid--home"
+              id="home-channels"
+            ></div>
+
+          </section>
+
+          <section class="section-block">
+
+            <div class="section-head">
+
+              <div>
+                <p class="eyebrow">TU CUENTA</p>
+                <h2>Estado del acceso</h2>
+              </div>
+
+            </div>
+
+            <div class="subscription-card">
+
+              <div class="subscription-icon">
+                ✓
+              </div>
+
+              <div class="subscription-copy">
+
+                <span class="muted">
+                  Plan privado
+                </span>
+
+                <strong id="subscription-status">
+                  Acceso activo
+                </strong>
+
+                <span id="subscription-expiry">
+                  Vencimiento: —
+                </span>
+
+              </div>
+
+              <div class="subscription-days">
+
+                <strong id="days-left">—</strong>
+
+                <span>
+                  días restantes
+                </span>
+
+              </div>
+
+            </div>
+
+          </section>
+
+        </section>
+
+
+        <!-- =========================
+             PARTIDOS
+        ========================== -->
+
+        <section class="view" id="view-matches">
+
+          <div class="page-intro">
+
+            <p class="eyebrow">
+              PROGRAMACIÓN
+            </p>
+
+            <h2>
+              Partidos
+            </h2>
+
+            <p>
+              Explorá los próximos eventos disponibles en tu acceso.
+            </p>
+
+          </div>
+
+          <div class="toolbar">
+
+            <label class="search-box">
+
+              <span>⌕</span>
+
+              <input
+                id="match-search"
+                type="search"
+                placeholder="Buscar equipo o competición…"
+                autocomplete="off"
+              >
+
+            </label>
+
+            <div class="match-filters" id="match-filters">
+              <div class="match-status-filters" id="match-status-filters"></div>
+              <div class="league-filters" id="league-filters"></div>
+            </div>
+
+          </div>
+
+          <div
+            class="match-grid match-grid--large"
+            id="all-matches"
+          ></div>
+
+        </section>
+
+
+        <!-- =========================
+             TV EN VIVO
+        ========================== -->
+
+        <section class="view" id="view-live">
+
+          <div class="page-intro">
+
+            <p class="eyebrow">
+              TRANSMISIÓN
+            </p>
+
+            <h2>
+              TV en vivo
+            </h2>
+
+            <p>
+              Seleccioná un canal deportivo para comenzar la reproducción.
+            </p>
+
+          </div>
+
+          <section class="player-layout">
+
+            <div class="player-panel">
+
+              <div class="player-header">
+
+                <div>
+
+                  <span
+                    class="player-kicker"
+                    id="player-country"
+                  >
+                    SELECCIONÁ UN CANAL
+                  </span>
+
+                  <h3 id="player-title">
+                    TV en vivo
+                  </h3>
+
+                </div>
+
+                <span class="live-indicator">
+                  <i></i>
+                  EN VIVO
+                </span>
+
+              </div>
+
+              <div class="video-wrapper">
+
+                <video
+                  id="live-player"
+                  controls
+                  playsinline
+                  preload="metadata"
+                ></video>
+
+                <div
+                  class="player-placeholder"
+                  id="player-placeholder"
+                >
+
+                  <div class="player-placeholder-icon">
+                    ▶
+                  </div>
+
+                  <strong>
+                    Seleccioná un canal
+                  </strong>
+
+                  <span>
+                    Elegí una señal de la lista para comenzar.
+                  </span>
+
+                </div>
+
+                <div
+                  class="player-loading hidden"
+                  id="player-loading"
+                >
+
+                  <span class="loading-spinner"></span>
+
+                  <span>
+                    Conectando con la señal…
+                  </span>
+
+                </div>
+
+              </div>
+
+              <div
+                class="player-error hidden"
+                id="player-error"
+              ></div>
+
+            </div>
+
+
+            <aside class="channel-sidebar">
+
+              <div class="channel-sidebar-head">
+
+                <div>
+
+                  <p class="eyebrow">
+                    SEÑALES
+                  </p>
+
+                  <h3>
+                    Canales
+                  </h3>
+
+                </div>
+
+                <span id="channel-count">
+                  0
+                </span>
+
+              </div>
+
+              <div class="channel-filters">
+
+                <button
+                  class="channel-filter is-active"
+                  data-country-filter="all"
+                >
+                  Todos
+                </button>
+
+                <button
+                  class="channel-filter"
+                  data-country-filter="AR"
+                >
+                  🇦🇷 Argentina
+                </button>
+
+                <button
+                  class="channel-filter"
+                  data-country-filter="MX"
+                >
+                  🇲🇽 México
+                </button>
+
+              </div>
+
+              <div
+                class="channel-list"
+                id="channel-list"
+              ></div>
+
+            </aside>
+
+          </section>
+
+        </section>
+
+
+        <!-- =========================
+             FAVORITOS
+        ========================== -->
+
+        <section class="view" id="view-favorites">
+
+          <div class="page-intro">
+
+            <p class="eyebrow">
+              PERSONAL
+            </p>
+
+            <h2>
+              Favoritos
+            </h2>
+
+            <p>
+              Guardá tus eventos para encontrarlos rápidamente.
+            </p>
+
+          </div>
+
+          <div
+            class="channel-grid channel-grid--favorites"
+            id="favorite-channels"
+          ></div>
+
+        </section>
+
+
+        <!-- =========================
+             USUARIOS
+        ========================== -->
+
+        <section class="view" id="view-users">
+
+          <div class="page-intro page-intro--row">
+
+            <div>
+
+              <p class="eyebrow">
+                ADMINISTRACIÓN
+              </p>
+
+              <h2>
+                Usuarios
+              </h2>
+
+              <p>
+                Creá accesos y renovalos por bloques de 30 días.
+              </p>
+
+            </div>
+
+            <button
+              class="button button--primary"
+              id="open-create-user"
+            >
+              + Crear usuario
+            </button>
+
+          </div>
+
+          <div class="admin-stats">
+
+            <div class="stat-card">
+              <span>Usuarios activos</span>
+              <strong id="stat-active">0</strong>
+            </div>
+
+            <div class="stat-card">
+              <span>Por vencer</span>
+              <strong id="stat-expiring">0</strong>
+            </div>
+
+            <div class="stat-card">
+              <span>Vencidos</span>
+              <strong id="stat-expired">0</strong>
+            </div>
+
+          </div>
+
+          <div class="table-card">
+
+            <div class="table-scroll">
+
+              <table>
+
+                <thead>
+
+                  <tr>
+                    <th>Usuario</th>
+                    <th>Pantallas</th>
+                    <th>Estado</th>
+                    <th>Vencimiento</th>
+                    <th>Restante</th>
+                    <th>Acciones</th>
+                  </tr>
+
+                </thead>
+
+                <tbody id="users-table"></tbody>
+
+              </table>
+
+            </div>
+
+          </div>
+
+        </section>
+
+      </main>
+
+    </section>
+
+  </div>
+
+
+  <!-- =========================
+       MODAL CREAR USUARIO
+  ========================== -->
+
+  <div
+    class="modal-backdrop hidden"
+    id="user-modal"
+    aria-hidden="true"
+  >
+
+    <div
+      class="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
+    >
+
+      <button
+        class="modal-close"
+        id="close-user-modal"
+        aria-label="Cerrar"
+      >
+        ×
+      </button>
+
+      <p class="eyebrow">
+        NUEVO ACCESO
+      </p>
+
+      <h2 id="modal-title">
+        Crear usuario
+      </h2>
+
+      <p class="muted">
+        El usuario recibirá
+        <strong>30 días de acceso</strong>
+        desde este momento.
+      </p>
+
+      <form id="create-user-form">
+
+        <label class="field">
+
+          <span>
+            Nombre visible
+          </span>
+
+          <input
+            id="new-display-name"
+            type="text"
+            maxlength="60"
+            placeholder="Ej. Juan Pérez"
+          >
+
+        </label>
+
+        <label class="field">
+
+          <span>
+            Usuario
+          </span>
+
+          <input
+            id="new-username"
+            type="text"
+            maxlength="32"
+            placeholder="juan.perez"
+            required
+          >
+
+        </label>
+
+        <label class="field">
+
+          <span>
+            Máximo de dispositivos/pantallas simultáneos
+          </span>
+
+          <input
+            id="new-max-devices"
+            type="number"
+            min="1"
+            max="10"
+            value="2"
+            required
+          >
+
+        </label>
+
+        <label class="field">
+
+          <span>
+            Contraseña
+          </span>
+
+          <input
+            id="new-password"
+            type="password"
+            minlength="8"
+            maxlength="200"
+            placeholder="Mínimo 8 caracteres"
+            required
+          >
+
+        </label>
+
+        <button
+          class="button button--primary button--full"
+          type="submit"
+          id="create-user-submit"
+        >
+          Crear acceso de 30 días
+        </button>
+
+        <p
+          class="form-message"
+          id="create-user-message"
+          role="alert"
+        ></p>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+  <script src="/js/app.js" defer></script>
+
+</body>
+</html>
