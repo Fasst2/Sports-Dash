@@ -1,5 +1,7 @@
 "use strict";
 
+require("dotenv").config();
+
 const express = require("express");
 const path = require("path");
 const helmet = require("helmet");
@@ -26,11 +28,7 @@ app.use(helmet({
       defaultSrc: ["'self'"],
       scriptSrc: ["'self'", "https://vjs.zencdn.net"],
       styleSrc: ["'self'", "https://vjs.zencdn.net"],
-      imgSrc: [
-        "'self'",
-        "data:",
-        "https://media.api-sports.io"
-      ],
+      imgSrc: ["'self'", "data:", "https://media.api-sports.io"],
       mediaSrc: ["'self'", "blob:", "https:"],
       connectSrc: ["'self'", "https:"],
       fontSrc: ["'self'", "data:", "https://vjs.zencdn.net"],
@@ -42,8 +40,7 @@ app.use(helmet({
       formAction: ["'self'"]
     }
   },
-  referrerPolicy: { policy: "strict-origin-when-cross-origin"
-  }
+  referrerPolicy: { policy: "strict-origin-when-cross-origin" }
 }));
 
 app.use(express.json({ limit: "32kb" }));
@@ -67,17 +64,41 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/private", privateRoutes);
 app.use("/api/matches", requireAuth, matchesRoutes);
 
+// Los recursos estáticos públicos solo contienen el login y assets necesarios.
+// El dashboard vive fuera de /public y siempre pasa por requireAuth.
 app.use(express.static(path.join(__dirname, "public"), {
-  extensions: ["html"],
+  extensions: false,
+  index: false,
   maxAge: nodeEnv === "production" ? "1h" : 0
 }));
+
+function hasValidSession(req) {
+  const token = req.cookies?.sportdash_session;
+  if (!token) return false;
+  const sessions = require("./server/repositories/session.repository");
+  const session = sessions.find(token);
+  if (!session) return false;
+  return true;
+}
+
+app.get("/", (req, res) => {
+  if (hasValidSession(req)) return res.redirect(302, "/app");
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
 
 app.get("/app", requireAuth, (req, res) => {
   res.sendFile(path.join(__dirname, "views", "app.html"));
 });
 
-app.get(/.*/, (req, res) => {
+app.get("/login", (req, res) => {
+  if (hasValidSession(req)) return res.redirect(302, "/app");
   res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
+// Cualquier ruta HTML desconocida vuelve al login, nunca al dashboard.
+app.get(/.*/, (req, res) => {
+  if (hasValidSession(req)) return res.redirect(302, "/app");
+  res.redirect(302, "/");
 });
 
 app.use((err, req, res, next) => {
